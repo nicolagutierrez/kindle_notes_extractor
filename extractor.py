@@ -26,8 +26,8 @@ def extraction(book):
         for line in infile:
             if line == "\n":
                 continue
-
-            line = re.sub(r'[^\x00-\x7F]+', '', line) # remove non-ascii characters
+            
+            line = line.replace('\ufeff', '')
 
             if line.startswith(book):
                 cnt += 1
