@@ -1,4 +1,4 @@
-import os, sys, re
+import os, sys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,9 +8,15 @@ highlight_term = os.getenv("HIGHLIGHT_TERM", None)
 note_term = os.getenv("NOTE_TERM", None)
 bookmark_term = os.getenv("BOOKMARK_TERM", None)
 
-if directory is None or highlight_term is None or note_term is None or bookmark_term is None:
+if (
+    directory is None
+    or highlight_term is None
+    or note_term is None
+    or bookmark_term is None
+):
     print("Please set the environment variables, refer to the README.md file")
     sys.exit(1)
+
 
 def extraction(book):
     input_file = os.path.join(directory, kindle_file)
@@ -26,9 +32,8 @@ def extraction(book):
         for line in infile:
             if line == "\n":
                 continue
-            
-            line = line.replace('\ufeff', '')
 
+            line = line.replace("\ufeff", "")
             if line.startswith(book):
                 cnt += 1
                 continue
@@ -128,7 +133,23 @@ def extraction(book):
         print("Done!")
 
 
+def get_last_book():
+    with open(os.path.join(directory, kindle_file), "r") as infile:
+        lines = infile.readlines()
+        return lines[-5].split("(")[0]
+
+
 if __name__ == "__main__":
     books = sys.argv[1:]
+    if len(books) == 0:
+        print("Using last book read...")
+        books.append(get_last_book())
+        print("Last book read: " + books[0])
+        print("Do you want to proceed? (y/n)")
+        response = input()
+        if response.lower() != "y":
+            print("Exiting...")
+            sys.exit(1)
+
     for book in books:
         extraction(book)

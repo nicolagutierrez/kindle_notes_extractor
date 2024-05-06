@@ -11,5 +11,5 @@ BOOKMARK_TERM="- Il tuo segnalibro a pagina"
 ```
     
   - *If you have a custom name for the file, you can define the `KINDLE_FILE` environment variable in the `.env` file.*
-2. Run the script passing the title of books (the title must be precise)
+2. Run the script passing the title of books (the title must be precise) - if no title is passed, the script will extract the notes of the last book with a highlight/note/bookmark (the last entry).
 3. The script will generate a file with the quotes and notes of the book in the same directory where the kindle notes file is located.
