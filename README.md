@@ -17,5 +17,10 @@ BOOKMARK_TERM="- Il tuo segnalibro"
 
 - _If you have a custom name for the file, you can define the `KINDLE_FILE` environment variable in the `.env` file._
 
-2. Run the script passing the title of books (the title must be precise) - if no title is passed, the script will extract the notes of the last book with a highlight/note/bookmark (the last entry).
+2. Run the script passing the title of books, the title must be precise, congruent with the beginning of the filename (for example "1984 by George Orwell (George Orwell)" can be passed as "1984" or "1984 by George Orwell"). If you don't know the precise name of the file you can take a look to `My Clippings.txt` file. If no title is passed, the script will extract the notes of the last book with a highlight/note/bookmark (the last entry).
+
+```bash
+py extractor.py "1984" "Solaris"
+```
+
 3. The script will generate a file with the quotes and notes of the book in the same directory where the kindle notes file is located.

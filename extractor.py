@@ -155,7 +155,7 @@ if __name__ == "__main__":
         print("Using last book read...")
         books.append(get_last_book())
         print("Last book read: " + books[0])
-        print("Do you want to proceed? (y/n)")
+        print("Do you want to proceed? (y/n) ", end="")
         response = input()
         if response.lower() != "y":
             print("Exiting...")
