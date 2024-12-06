@@ -5,6 +5,8 @@ load_dotenv()
 directory = os.getenv("DIRECTORY_PATH", None)
 kindle_file = os.getenv("KINDLE_FILE", "My Clippings.txt")
 highlight_term = os.getenv("HIGHLIGHT_TERM", None)
+page_term = os.getenv("PAGE_TERM", None)
+position_term = os.getenv("POSITION_TERM", None)
 note_term = os.getenv("NOTE_TERM", None)
 bookmark_term = os.getenv("BOOKMARK_TERM", None)
 
@@ -53,14 +55,22 @@ def extraction(book):
                     continue
 
                 details = line.split("|")
-                page = details[0].split(" ")[-2]
-                pos = details[1].split(" ")[-2]
+                if details[0].split(" ")[-3] == page_term:
+                    page = details[0].split(" ")[-2]
+                    pos = details[1].split(" ")[-2]
+                elif details[0].split(" ")[-3] == position_term:
+                    page = "0-0"
+                    pos = details[0].split(" ")[-2]
+                else:
+                    page = "0-0"
+                    pos = "0-0"
 
-                if line.startswith(highlight_term):
+                formatted_line = line.replace(" ", "")
+                if formatted_line.startswith(highlight_term.replace(" ", "")):
                     flag = 1
-                if line.startswith(note_term):
+                if formatted_line.startswith(note_term.replace(" ", "")):
                     flag = 2
-                if line.startswith(bookmark_term):
+                if formatted_line.startswith(bookmark_term.replace(" ", "")):
                     book_details["page"] = page
                     book_details["pos"] = pos
                     continue
