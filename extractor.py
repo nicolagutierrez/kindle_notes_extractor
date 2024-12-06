@@ -99,8 +99,11 @@ def extraction(book):
                 continue
 
             start = int(r[0])
-            if start not in pos_groups or int(r[1]) > int(
-                pos_groups[start]["pos"].split("-")[1]
+            pos_group = pos_groups.get(start)
+            if pos_group is None or int(r[1]) > (
+                int(pos_group["pos"].split("-")[1])
+                if len(pos_group["pos"].split("-")) > 1
+                else int(pos_group["pos"].split("-")[0])
             ):
                 pos_groups[start] = d
 
